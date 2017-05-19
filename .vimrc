@@ -1,4 +1,5 @@
 syntax on
+set noswapfile
 set expandtab
 set background=dark
 set ruler                     " show the line number on the bar
@@ -46,7 +47,7 @@ set diffopt=filler,iwhite     " ignore all whitespace and sync
 
 " Special character display
 set list
-set listchars=eol:¶,trail:-
+set listchars=trail:-
 
 " spelling
 if v:version >= 700
@@ -60,6 +61,17 @@ nmap <LocalLeader>tl :set list!<cr>
 " toggle paste mode
 nmap <LocalLeader>pp :set paste!<cr>
 
-execute pathogen#infect()
+
 noremap <Tab> <C-w><C-w>
 nnoremap <Leader>b :buffers<CR>:buffer<Space>
+
+let g:lasttab = 1
+" nmap <Leader>tt :exe "tabn ".g:lasttab<CR>
+nmap <c-\> :exe "tabn ".g:lasttab<CR>
+
+au TabLeave * let g:lasttab = tabpagenr()
+
+execute pathogen#infect()
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+set runtimepath^=~/.vim/bundle/ag
